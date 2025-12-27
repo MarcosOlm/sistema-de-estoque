@@ -1,0 +1,38 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .8em 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5em;
+}
+
+.brand {
+    font-size: 10px;
+}
+
+.brand p {
+    font-size: 14px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+}
+
+.navigation {
+    color: var(--foreground);
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+}
+
+header button {
+    background-color: transparent;
+    color: var(--foreground);
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    padding: .5em 1em;
+}
