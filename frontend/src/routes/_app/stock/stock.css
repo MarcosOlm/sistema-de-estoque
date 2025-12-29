@@ -1,0 +1,160 @@
+.title {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.title h1 {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  margin-top: auto;
+}
+
+.title p {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  margin-bottom: auto;
+}
+
+.title button {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  width: 10em;
+  height: 4em;
+  margin: auto;
+  margin-right: 0;
+  background-color: var(--primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.search-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+/* Search */
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  width: 100%;
+}
+
+.search input {
+  width: 90%;
+  height: 3em;
+  padding: 0 0.5em;
+  color: white;
+  background-color: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.search button {
+  width: 10%;
+  height: 3em;
+  background-color: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: white;
+  cursor: pointer;
+}
+
+/* Filter */
+
+.filter {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  padding: 1em;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.category-wrap {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+.category-wrap select {
+  font-size: 14px;
+  font-weight: 600;
+
+  &,
+  &::picker(select) {
+    appearance: base-select;
+    padding: 0.5em;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: var(--card);
+    color: var(--card-foreground);
+  }
+}
+
+.price-wrap {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+.quant-wrap {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+}
+
+.filter h1 {
+  font-size: 24px;
+}
+
+.filter label {
+  display: block;
+}
+
+.filter input {
+  accent-color: var(--accent);
+  height: 70%;
+  margin: auto;
+}
+
+.filter input,
+.filter select {
+  width: 90%;
+}
+
+/* Products */
+
+.prods-title {
+  margin-bottom: 1em;
+}
+
+.prods-wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  gap: 1.5em;
+}
+
+.product {
+  padding: 1em;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.prod-name {
+  padding: 0.5em 0.5em 1em;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.prod-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+}

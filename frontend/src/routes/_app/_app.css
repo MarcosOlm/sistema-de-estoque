@@ -1,10 +1,15 @@
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: .8em 0;
+    width: 100vw;
+    padding: .8em 5vw;
+    background-color: hsla(218, 17%, 9%, 0.482);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
-    margin-bottom: 1.5em;
 }
 
 .brand {
@@ -19,7 +24,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2em;
+    gap: 1.5em;
 }
 
 .navigation {
@@ -34,5 +39,11 @@ header button {
     font-family: "Poppins", sans-serif;
     font-size: 14px;
     border: 1px solid var(--border);
+    border-radius: var(--radius);
     padding: .5em 1em;
+    cursor: pointer;
+}
+
+main {
+    margin-top: 6em;
 }

@@ -1,4 +1,5 @@
-import './_app.css'
+import { useState } from "react";
+import "./_app.css";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app")({
@@ -6,6 +7,8 @@ export const Route = createFileRoute("/_app")({
 });
 
 function RouteComponent() {
+  const [dashboard, setDashboard] = useState<boolean>(true);
+
   return (
     <>
       <header>
@@ -14,7 +17,14 @@ function RouteComponent() {
           <p>Marcos</p>
         </div>
         <nav>
-          <Link to="/stock" className='navigation'> Produtos </Link>
+          <Link
+            to={dashboard ? "/stock" : "/dashboard"}
+            className="navigation"
+            onClick={() => setDashboard(!dashboard)}
+          >
+            {" "}
+            {dashboard ? "Produtos" : "Dashboard"}{" "}
+          </Link>
           <button type="button">Sair</button>
         </nav>
       </header>
