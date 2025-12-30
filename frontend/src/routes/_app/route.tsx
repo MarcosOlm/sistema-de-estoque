@@ -12,7 +12,7 @@ function RouteComponent() {
   return (
     <>
       <header>
-        <div className="brand">
+        <div className="hearder-brand">
           <h1>StockFlow</h1>
           <p>Marcos</p>
         </div>

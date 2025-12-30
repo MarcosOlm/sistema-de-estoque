@@ -1,0 +1,46 @@
+.form-text h1 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.form-text p {
+    color: var(--muted-foreground);
+}
+
+form {
+    width: 30vw;
+    padding: 0 1em;
+}
+
+form label, form input {
+    display: block;
+    width: 100%;
+    margin: 1em 0;
+}
+
+form input {
+    height: 2.6em;
+    padding: 0 1em;
+    background-color: var(--input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+form input::placeholder {
+    color: var(--muted-foreground);
+}
+
+form input:focus-visible {
+    color: var(--foreground);
+}
+
+form button {
+    width: 100%;
+    height: 2.6em;
+    margin: 1.2em 0;
+    color: var(--primary-foreground);
+    background-color: var(--primary);
+    border: none;
+    border-radius: var(--radius);
+}
