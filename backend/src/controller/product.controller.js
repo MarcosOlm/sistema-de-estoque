@@ -7,13 +7,13 @@ export class ProductController {
         try {
             const result = await this._service.register(req.body);
             return res.status(201).json({
-                massage: 'produto cadastro com sucesso',
+                message: 'produto cadastro com sucesso',
                 result: result,
             })
         }
         catch (err) {
             return res.status(400).json({
-                error: err.massage,
+                error: err.message,
             })
         }
     }
