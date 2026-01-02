@@ -3,8 +3,7 @@ import connect from "../database";
 const db = connect();
 
 export class StoreRepository {
-  async create(store) {
-    const { name, email, password } = store;
+  async create(name, email, password) {
     const [result] = await db.query(
       "INSERT INTO store (name, email, password) VALUES ?, ?, ?",
       [name, email, password]
@@ -12,17 +11,15 @@ export class StoreRepository {
     return result;
   }
 
-  async delete(store) {
-    const { idStore } = store;
+  async delete(idStore) {
     const [result] = await db.query("DELETE FROM store WHERE idStore = ?", [
       idStore,
     ]);
     return result;
   }
 
-  async update(store) {
-    const { idStore } = store;
-    const [result] = await db.query(`UPDATE store SET ${checkField(store)} WHERE idStore = ?`, [
+  async update(idStore, field) {
+    const [result] = await db.query(`UPDATE store SET ${checkField(field)} WHERE idStore = ?`, [
         idStore,
     ]);
     return result;
