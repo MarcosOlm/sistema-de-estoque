@@ -6,7 +6,7 @@ export class StoreService{
     async register(store) {
         const existing = await this._repository.findByEmail(store.email);
         if (existing.length > 0) {
-            throw new Error('usuário já existente')
+            throw new Error('usuário já existente');
         }
 
         return this._repository.create(store);

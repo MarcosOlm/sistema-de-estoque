@@ -3,15 +3,47 @@ import connect from "../database";
 const db = connect();
 
 export class StoreRepository {
-    async create(store) {
-        const [result] = await db.query();
+  async create(store) {
+    const { name, email, password } = store;
+    const [result] = await db.query(
+      "INSERT INTO store (name, email, password) VALUES ?, ?, ?",
+      [name, email, password]
+    );
+    return result;
+  }
 
-        return result;
-    }
+  async delete(store) {
+    const { idStore } = store;
+    const [result] = await db.query("DELETE FROM store WHERE idStore = ?", [
+      idStore,
+    ]);
+    return result;
+  }
 
-    async findByEmail(email) {
-        const [rows] = await db.query();
+  async update(store) {
+    const { idStore } = store;
+    const [result] = await db.query(`UPDATE store SET ${checkField(store)} WHERE idStore = ?`, [
+        idStore,
+    ]);
+    return result;
+  }
 
-        return rows;
-    }
+  async findByEmail(email) {
+    const [rows] = await db.query('SELECT FROM store WHERE email = ?', [
+        email,
+    ]);
+    return rows;
+  }
+}
+
+// Recursive function
+
+function checkField(field, index=0, query=[]) {
+  if (Object.entries(field).length == index) {
+    return query;
+  }
+  if (Object.values(field).at(index).length > 0 && Object.keys(field).at(index) != 'idStore') {
+    query.push(`${Object.keys(field).at(index)} = '${Object.values(field).at(index)}'`);
+  }
+  return checkField(field, index+1, query);
 }
