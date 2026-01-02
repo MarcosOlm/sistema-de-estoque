@@ -1,17 +1,17 @@
 import connect from "../database.js";
 
-const db = connect();
-
 export class StoreRepository {
   async create(name, email, password) {
+    const db = await connect();
     const [result] = await db.query(
-      "INSERT INTO store (name, email, password) VALUES ?, ?, ?",
+      "INSERT INTO store (name, email, password) VALUES (?, ?, ?)",
       [name, email, password]
     );
     return result;
   }
 
   async delete(idStore) {
+    const db = await connect();
     const [result] = await db.query("DELETE FROM store WHERE idStore = ?", [
       idStore,
     ]);
@@ -19,6 +19,7 @@ export class StoreRepository {
   }
 
   async update(idStore, field) {
+    const db = await connect();
     const [result] = await db.query(`UPDATE store SET ${checkField(field)} WHERE idStore = ?`, [
         idStore,
     ]);
@@ -26,7 +27,8 @@ export class StoreRepository {
   }
 
   async findByEmail(email) {
-    const [rows] = await db.query('SELECT FROM store WHERE email = ?', [
+    const db = await connect();
+    const [rows] = await db.query('SELECT email FROM store WHERE email = ?', [
         email,
     ]);
     return rows;
