@@ -1,17 +1,8 @@
 import { StoreRepository } from '../repository/store.repository.js'
+import bcrypt from 'bcryptjs'
 
 export class StoreService{
     _repository = new StoreRepository();
-
-    async register(store) {
-        const { name, email, password } = store;
-        const existing = await this._repository.findByEmail(email);
-        if (existing.length > 0) {
-            throw new Error('usuário já existente');
-        }
-
-        return this._repository.create(name, email, password);
-    }
 
     async remove(store) {
         const { idStore } = store;
@@ -20,6 +11,9 @@ export class StoreService{
 
     async update(store) {
         const { idStore } = store;
+        if (store.password.length > 0) {
+            store.password = bcrypt.hash(store.password, 8);
+        }
         return this._repository.update(idStore, store);
     }
 }
