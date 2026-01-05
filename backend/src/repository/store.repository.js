@@ -28,7 +28,7 @@ export class StoreRepository {
 
   async findByEmail(email) {
     const db = await connect();
-    const [rows] = await db.query('SELECT email FROM store WHERE email = ?', [
+    const [rows] = await db.query('SELECT * FROM store WHERE email = ?', [
         email,
     ]);
     return rows;
