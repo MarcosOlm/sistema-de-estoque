@@ -5,7 +5,7 @@ export class StoreController {
 
   async delete(req, res) {
     try {
-      const result = await this._service.remove(req.body);
+      const result = await this._service.remove(req.idStore);
       return res.status(200).json({
         message: "loja deletada com sucesso",
         return: result,
@@ -19,7 +19,7 @@ export class StoreController {
 
   async update(req, res) {
     try {
-      const result = await this._service.update(req.body);
+      const result = await this._service.update(req.idStore, req.body);
       return res.status(200).json({
         message: "loja alterada com sucesso",
         return: result,
