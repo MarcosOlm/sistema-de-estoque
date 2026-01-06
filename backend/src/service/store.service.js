@@ -4,13 +4,11 @@ import bcrypt from 'bcryptjs'
 export class StoreService{
     _repository = new StoreRepository();
 
-    async remove(store) {
-        const { idStore } = store;
+    async remove(idStore) {
         return this._repository.delete(idStore);
     }
 
-    async update(store) {
-        const { idStore } = store;
+    async update(idStore, store) {
         if (store.password.length > 0) {
             store.password = bcrypt.hash(store.password, 8);
         }
