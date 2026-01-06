@@ -1,6 +1,6 @@
 import JWT from 'jsonwebtoken'
 
-const authMiddlewate = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
 
     const token = req.cookies.token;
 
@@ -11,7 +11,7 @@ const authMiddlewate = (req, res, next) => {
     }
     try {
         const decoded = JWT.verify(token, process.env.JWT_PASSWORD);
-        req.body.idStore = decoded.idStore;
+        req.idStore = decoded.idStore;
         next();
     }
     catch (err) {
@@ -21,4 +21,4 @@ const authMiddlewate = (req, res, next) => {
     }
 }
 
-export default authMiddlewate;
+export default authMiddleware;
