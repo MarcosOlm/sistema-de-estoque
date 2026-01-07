@@ -19,7 +19,10 @@ export class ProductController {
 
   async getById(req, res) {
     try {
-      const result = await this._service.getById(req.idStore, req.params.idProduct);
+      const result = await this._service.getById(
+        req.idStore,
+        req.params.idProduct
+      );
       return res.status(200).json({
         message: "produto achado com sucesso",
         result: result,
@@ -27,6 +30,20 @@ export class ProductController {
     } catch (err) {
       return res.status(400).json({
         error: err.message,
+      });
+    }
+  }
+
+  async getProductsInfo(req, res) {
+    try {
+      const result = await this._service.getProductsInfo(req.idStore);
+      return res.status(200).json({
+        message: "informações achadas com sucesso",
+        result: result,
+      });
+    } catch (err) {
+      return res.status(400).json({
+        message: err.message,
       });
     }
   }
