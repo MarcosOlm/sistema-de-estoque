@@ -12,6 +12,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useQuery } from "@tanstack/react-query";
+import { useDashboard } from "../../../hooks/useDashboard";
 
 ChartJS.register(
   ArcElement,
@@ -21,7 +23,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   Tooltip,
-  Legend,
+  Legend
 );
 
 export const Route = createFileRoute("/_app/dashboard/")({
@@ -29,6 +31,52 @@ export const Route = createFileRoute("/_app/dashboard/")({
 });
 
 function RouteComponent() {
+  const { data, isPending } = useQuery(useDashboard());
+  const chartDataDoughnut = {
+    labels: data?.graphQuery.map((item) => item.category),
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: data?.graphQuery.map((item) => item.sizeByCategory),
+        backgroundColor: [
+          "#2563eb", // azul
+          "#16a34a", // verde
+          "#f59e0b", // amarelo
+          "#dc2626", // vermelho
+          "#7c3aed", // roxo
+          "#0ea5e9", // ciano
+          "#64748b", // cinza
+          "#ea580c", // laranja
+        ],
+        hoverOffset: 5,
+      },
+    ],
+  };
+  const chartDataBar = {
+    labels: data?.graphQuery.map((item) => item.category),
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: data?.graphQuery.map((item) => item.amountCategory),
+        backgroundColor: [
+          "#2563eb", // azul
+          "#16a34a", // verde
+          "#f59e0b", // amarelo
+          "#dc2626", // vermelho
+          "#7c3aed", // roxo
+          "#0ea5e9", // ciano
+          "#64748b", // cinza
+          "#ea580c", // laranja
+        ],
+        hoverOffset: 5,
+      },
+    ],
+  };
+
+  if (isPending) {
+    return <p>Carregando...</p>;
+  }
+
   return (
     <>
       <section className="title">
@@ -37,27 +85,27 @@ function RouteComponent() {
       </section>
       <section className="card-wrap">
         <article className="card">
-          <h1>Valor Total</h1>
-          <h2>R$ 3.000</h2>
-          <p>em estoque</p>
+          <h1>Produtos</h1>
+          <h2> {data?.cardQuery.quantityProducts ?? 0} </h2>
+          <p>cadastrados</p>
+          <img src="dollar-sign.svg" alt="" />
+        </article>
+        <article className="card">
+          <h1>Categorias</h1>
+          <h2> {data?.cardQuery.quantityCategory ?? 0} </h2>
+          <p>ativas</p>
           <img src="dollar-sign.svg" alt="" />
         </article>
         <article className="card">
           <h1>Valor Total</h1>
-          <h2>R$ 3.000</h2>
+          <h2>R$ {data?.cardQuery.amountPrice ?? 0} </h2>
           <p>em estoque</p>
           <img src="dollar-sign.svg" alt="" />
         </article>
         <article className="card">
-          <h1>Valor Total</h1>
-          <h2>R$ 3.000</h2>
-          <p>em estoque</p>
-          <img src="dollar-sign.svg" alt="" />
-        </article>
-        <article className="card">
-          <h1>Valor Total</h1>
-          <h2>R$ 3.000</h2>
-          <p>em estoque</p>
+          <h1>Preço Médio</h1>
+          <h2>R$ {data?.cardQuery.averagePrice ?? 0} </h2>
+          <p>por produto</p>
           <img src="dollar-sign.svg" alt="" />
         </article>
       </section>
@@ -68,15 +116,15 @@ function RouteComponent() {
           </div>
           <div className="doughnut">
             <Doughnut
-              data={data}
+              data={chartDataDoughnut}
               options={{
-                responsive: true, 
+                responsive: true,
                 plugins: {
                   legend: {
                     display: true,
-                    position: "bottom"
-                  }
-                }
+                    position: "bottom",
+                  },
+                },
               }}
             />
           </div>
@@ -87,14 +135,14 @@ function RouteComponent() {
           </div>
           <div className="bar">
             <Bar
-              data={data}
+              data={chartDataBar}
               options={{
                 responsive: true,
                 plugins: {
                   legend: {
-                    display: false
-                  }
-                }
+                    display: false,
+                  },
+                },
               }}
             />
           </div>
@@ -106,35 +154,35 @@ function RouteComponent() {
             <h1>Alertas de Estoque</h1>
             <span>≤ 10 unidades</span>
           </div>
-          <div className="low-stock">
-            <h1>celular</h1>
-            <p>eletrônicos</p>
-            <span>2 un.</span>
-          </div>
+          {data?.noStockAlertQuery.length === 0 ? (
+            <p>não tem produtos faltando</p>
+          ) : (
+            data?.noStockAlertQuery.map((item) => (
+              <div className="low-stock">
+                <h1> {item.name} </h1>
+                <p> {item.category} </p>
+                <span>{item.quantity} un.</span>
+              </div>
+            ))
+          )}
         </article>
         <article className="details">
           <div className="details-text">
             <h1>Produtos Recentes</h1>
           </div>
-          <div className="new-prod">
-            <h1>celular</h1>
-            <p>eletrônicos</p>
-            <span>R$ 1.000,00</span>
-          </div>
+          {data?.newProductsQuery.length === 0 ? (
+            <p>não tem novos produtos no momento</p>
+          ) : (
+            data?.newProductsQuery.map((item) => (
+              <div className="new-prod">
+                <h1> {item.name} </h1>
+                <p> {item.category} </p>
+                <span>R$ {item.price} </span>
+              </div>
+            ))
+          )}
         </article>
       </section>
     </>
   );
 }
-
-const data = {
-  labels: ["Red", "Blue", "Yellow"],
-  datasets: [
-    {
-      label: "My First Dataset",
-      data: [20, 50, 100],
-      backgroundColor: ["rgb(255, 99, 132)"],
-      hoverOffset: 5,
-    },
-  ],
-};
