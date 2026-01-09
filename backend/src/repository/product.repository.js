@@ -3,7 +3,7 @@ import connect from "../database.js";
 export class ProductRepository {
     async getAll(idStore) {
         const db = await connect();
-        const [result] = await db.query("SELECT name, price, quantity, category FROM products WHERE FK_idStore = ?", [
+        const [result] = await db.query("SELECT idProduct, name, price, quantity, category FROM products WHERE FK_idStore = ?", [
             idStore,
         ])
         return result;
@@ -32,7 +32,7 @@ export class ProductRepository {
             idStore,
         ]);
         cardQuery[0].quantityCategory = graphQuery.length;
-        return [{cardQuery: cardQuery[0]}, {graphQuery: [...graphQuery]}, {noStockAlertQuery: [...noStockAlertQuery]}, {newProductsQuery: [...newProductsQuery]}];
+        return [cardQuery[0], [...graphQuery], [...noStockAlertQuery], [...newProductsQuery]];
     }
 
     async create(name, price, quantity, category, idStore) {

@@ -39,7 +39,10 @@ export class ProductController {
       const result = await this._service.getProductsInfo(req.idStore);
       return res.status(200).json({
         message: "informações achadas com sucesso",
-        result: result,
+        cardQuery: result[0],
+        graphQuery: result[1],
+        noStockAlertQuery: result[2],
+        newProductsQuery: result[3]
       });
     } catch (err) {
       return res.status(400).json({
