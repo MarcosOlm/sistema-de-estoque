@@ -49,4 +49,17 @@ export class AuthController {
       });
     }
   }
+
+  async me(req, res) {
+    try {
+      res.status(200).json({
+        message: 'rota segura para prosseguir'
+      })
+    }
+    catch (err) {
+      res.status(400).json({
+        error: err.message,
+      })
+    }
+  }
 }
