@@ -1,5 +1,5 @@
 import "./product.css";
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Navigate, redirect } from "@tanstack/react-router";
 import { authMeStore } from "../../../services/auth.service";
 import { useProductById, useUpdateProduct } from "../../../hooks/useStock";
 import { useQuery } from "@tanstack/react-query";
@@ -20,7 +20,13 @@ export const Route = createFileRoute("/_app/stock/$id")({
 
 function RouteComponent() {
   const { id } = Route.useParams();
-  const { data, isError } = useQuery(useProductById(Number(id)));
+  const { data, isError, isPending } = useQuery(useProductById(Number(id)));
+  if (isError) {
+    return <Navigate to="/" />
+  }
+  if (isPending) {
+    return <p>Carregando...</p>
+  }
   const [form, setForm] = useState({
     name: "",
     price: "",

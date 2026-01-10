@@ -20,6 +20,7 @@ export function useProductById(id: number) {
   return queryOptions({
     queryKey: ["product", id],
     queryFn: () => getProductById(id),
+    retry: 2
   });
 }
 
