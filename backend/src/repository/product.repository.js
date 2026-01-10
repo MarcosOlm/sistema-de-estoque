@@ -25,7 +25,7 @@ export class ProductRepository {
         const [graphQuery] = await db.query("SELECT COUNT(*) AS sizeByCategory, ROUND(SUM(price * quantity), 2) AS amountCategory, category FROM products WHERE FK_idStore = ? GROUP BY category", [
             idStore,
         ]);
-        const [noStockAlertQuery] = await db.query("SELECT name, quantity, category FROM products WHERE FK_idStore = ? AND quantity < 10", [
+        const [noStockAlertQuery] = await db.query("SELECT name, quantity, category FROM products WHERE FK_idStore = ? AND quantity < 10 LIMIT 2", [
             idStore,
         ]);
         const [newProductsQuery] = await db.query("SELECT name, price, category FROM products WHERE FK_idStore = ? ORDER BY idProduct DESC LIMIT 2", [
