@@ -16,6 +16,8 @@ import { Route as AuthSignUpRouteImport } from './routes/_auth/sign-up'
 import { Route as AuthSignInRouteImport } from './routes/_auth/sign-in'
 import { Route as AppStockIndexRouteImport } from './routes/_app/stock/index'
 import { Route as AppDashboardIndexRouteImport } from './routes/_app/dashboard/index'
+import { Route as AppStockNewProductRouteImport } from './routes/_app/stock/newProduct'
+import { Route as AppStockIdRouteImport } from './routes/_app/stock/$id'
 
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/_auth',
@@ -50,11 +52,23 @@ const AppDashboardIndexRoute = AppDashboardIndexRouteImport.update({
   path: '/dashboard/',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppStockNewProductRoute = AppStockNewProductRouteImport.update({
+  id: '/stock/newProduct',
+  path: '/stock/newProduct',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppStockIdRoute = AppStockIdRouteImport.update({
+  id: '/stock/$id',
+  path: '/stock/$id',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
+  '/stock/$id': typeof AppStockIdRoute
+  '/stock/newProduct': typeof AppStockNewProductRoute
   '/dashboard': typeof AppDashboardIndexRoute
   '/stock': typeof AppStockIndexRoute
 }
@@ -62,6 +76,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
+  '/stock/$id': typeof AppStockIdRoute
+  '/stock/newProduct': typeof AppStockNewProductRoute
   '/dashboard': typeof AppDashboardIndexRoute
   '/stock': typeof AppStockIndexRoute
 }
@@ -72,14 +88,30 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
+  '/_app/stock/$id': typeof AppStockIdRoute
+  '/_app/stock/newProduct': typeof AppStockNewProductRoute
   '/_app/dashboard/': typeof AppDashboardIndexRoute
   '/_app/stock/': typeof AppStockIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign-in' | '/sign-up' | '/dashboard' | '/stock'
+  fullPaths:
+    | '/'
+    | '/sign-in'
+    | '/sign-up'
+    | '/stock/$id'
+    | '/stock/newProduct'
+    | '/dashboard'
+    | '/stock'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign-in' | '/sign-up' | '/dashboard' | '/stock'
+  to:
+    | '/'
+    | '/sign-in'
+    | '/sign-up'
+    | '/stock/$id'
+    | '/stock/newProduct'
+    | '/dashboard'
+    | '/stock'
   id:
     | '__root__'
     | '/'
@@ -87,6 +119,8 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_auth/sign-in'
     | '/_auth/sign-up'
+    | '/_app/stock/$id'
+    | '/_app/stock/newProduct'
     | '/_app/dashboard/'
     | '/_app/stock/'
   fileRoutesById: FileRoutesById
@@ -148,15 +182,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/_app/stock/newProduct': {
+      id: '/_app/stock/newProduct'
+      path: '/stock/newProduct'
+      fullPath: '/stock/newProduct'
+      preLoaderRoute: typeof AppStockNewProductRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/stock/$id': {
+      id: '/_app/stock/$id'
+      path: '/stock/$id'
+      fullPath: '/stock/$id'
+      preLoaderRoute: typeof AppStockIdRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 
 interface AppRouteRouteChildren {
+  AppStockIdRoute: typeof AppStockIdRoute
+  AppStockNewProductRoute: typeof AppStockNewProductRoute
   AppDashboardIndexRoute: typeof AppDashboardIndexRoute
   AppStockIndexRoute: typeof AppStockIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppStockIdRoute: AppStockIdRoute,
+  AppStockNewProductRoute: AppStockNewProductRoute,
   AppDashboardIndexRoute: AppDashboardIndexRoute,
   AppStockIndexRoute: AppStockIndexRoute,
 }

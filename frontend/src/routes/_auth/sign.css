@@ -25,6 +25,7 @@ form input {
     background-color: var(--input);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    color: var(--foreground);
 }
 
 form input::placeholder {

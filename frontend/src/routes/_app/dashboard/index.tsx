@@ -115,7 +115,7 @@ function RouteComponent() {
             <h1>Distribuição por Categoria</h1>
           </div>
           <div className="doughnut">
-            <Doughnut
+            {chartDataDoughnut.datasets[0].data?.length ? <Doughnut
               data={chartDataDoughnut}
               options={{
                 responsive: true,
@@ -126,7 +126,7 @@ function RouteComponent() {
                   },
                 },
               }}
-            />
+            /> : <p>Nenhum dado disponível</p>}
           </div>
         </article>
         <article className="graphs-wrap">
@@ -134,7 +134,7 @@ function RouteComponent() {
             <h1>Valor por Categoria</h1>
           </div>
           <div className="bar">
-            <Bar
+            {chartDataBar.datasets[0].data?.length ? <Bar
               data={chartDataBar}
               options={{
                 responsive: true,
@@ -144,7 +144,7 @@ function RouteComponent() {
                   },
                 },
               }}
-            />
+            /> : <p>Nenhum dado disponível</p>}
           </div>
         </article>
       </section>
@@ -155,10 +155,12 @@ function RouteComponent() {
             <span>≤ 10 unidades</span>
           </div>
           {data?.noStockAlertQuery.length === 0 ? (
-            <p>não tem produtos faltando</p>
+            <div className="not-found">
+              <p>não tem novos produtos no momento</p>
+            </div>
           ) : (
-            data?.noStockAlertQuery.map((item) => (
-              <div className="low-stock">
+            data?.noStockAlertQuery.map((item, index) => (
+              <div className="low-stock" key={index}>
                 <h1> {item.name} </h1>
                 <p> {item.category} </p>
                 <span>{item.quantity} un.</span>
@@ -171,10 +173,12 @@ function RouteComponent() {
             <h1>Produtos Recentes</h1>
           </div>
           {data?.newProductsQuery.length === 0 ? (
-            <p>não tem novos produtos no momento</p>
+            <div className="not-found">
+              <p>não tem novos produtos no momento</p>
+            </div>
           ) : (
-            data?.newProductsQuery.map((item) => (
-              <div className="new-prod">
+            data?.newProductsQuery.map((item, index) => (
+              <div className="new-prod" key={index}>
                 <h1> {item.name} </h1>
                 <p> {item.category} </p>
                 <span>R$ {item.price} </span>
