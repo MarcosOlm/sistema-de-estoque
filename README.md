@@ -16,7 +16,7 @@ A autenticação é baseada em JSON Web Tokens (JWT), armazenados em cookies HTT
 ## ⚙️ Instalação Frontend (Vite)
 
 ```bash
-npm install @tanstack/react-query @tanstack/react-router chart.js react-chartjs-2 axios react-hook-form
+npm install 
 ```
 
 ```bash
@@ -25,7 +25,7 @@ npm run dev
 ## ⚙️ Instalação BackEnd em Node.js
 
 ```bash
-npm install express cors cookie-parser bcrypt mysql2 jsonwebtoken dotenv
+npm install
 ```
 
 ### .env
